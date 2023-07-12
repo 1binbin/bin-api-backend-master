@@ -26,6 +26,7 @@ import static com.bin.binclientsdk.utils.SignUtil.genSign;
  * @Time 2023/7/12 0012-16:25:59
  */
 public class BinApiClient {
+    public static String GATEWAY_HOST = HostConstant.GATEWAY_HOST;
     /**
      * 用户ak
      */
@@ -38,6 +39,10 @@ public class BinApiClient {
     public BinApiClient(String accessKey, String secretKey) {
         this.accessKey = accessKey;
         this.secretKey = secretKey;
+    }
+
+    public void setGatewayHost(String gatewayHost) {
+        GATEWAY_HOST = gatewayHost;
     }
 
 
@@ -72,7 +77,7 @@ public class BinApiClient {
      */
     public String invokeInterface(String params, String url, String method) throws UnsupportedEncodingException {
         // TODO: 2023/7/12 0012 匹配GET请求
-        HttpResponse httpResponse = HttpRequest.post(HostConstant.GATEWAY_HOST + url)
+        HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST + url)
                 .header("Accept-Charset", CharsetUtil.UTF_8)
                 .addHeaders(getHeaderMap(params, method))
                 .body(params)

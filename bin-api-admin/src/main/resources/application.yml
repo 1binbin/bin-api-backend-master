@@ -1,0 +1,73 @@
+# Public configuration class
+spring:
+  application:
+    name: bin-api-backend-master
+  profiles:
+    active: dev
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  # redis
+  redis:
+    database: 0
+    host: 192.168.56.135
+    port: 6379
+  session:
+    # 30 days
+    timeout: 2592000
+  # Comment Close Distributed Session
+#    store-type: redis
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yuapi?serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
+
+server:
+  address: 0.0.0.0
+  port: 8101
+  servlet:
+    context-path: /api
+    session:
+      cookie:
+        max-age: 2592000
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # Global logically deleted entity field names
+      logic-delete-value: 1 # Logical deleted value (default to 1)
+      logic-not-delete-value: 0 # Logical Undeleted Value (default to 0)
+
+# Todo ???????
+qiniu:
+  # Public key
+  accessKey: AInw755zXpHzJg8xC-ZIbgRwR_0QW7F7FikmrZU_
+  # Private key
+  secretKey: p7YuVGxXvyKszPNthjgfd5nvUraiqu0CvQzAFFsp
+  # Storage space name
+  bucketName: 1binbin
+  # Domain name/path
+  path: http://rwp31uuk8.hn-bkt.clouddn.com
+  # The file names stored in the space do not need to be deleted
+  documentName: wyyMusic/
+
+dubbo:
+  application:
+    name: bin-api-admin-provider
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    id: nacos-registry
+    address: nacos://192.168.79.1:8848
