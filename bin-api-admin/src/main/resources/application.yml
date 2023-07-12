@@ -71,3 +71,7 @@ dubbo:
   registry:
     id: nacos-registry
     address: nacos://192.168.79.1:8848
+
+bin:
+  gateway:
+    host: http://localhost:8090
