@@ -29,6 +29,8 @@
         <dependency>
             <groupId>cn.bin</groupId>
             <artifactId>bin-api-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <!-- SpringBoot Web -->
         <dependency>
@@ -105,18 +107,18 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- Wx Java Mp -->
+<!--        &lt;!&ndash; Wx Java Mp &ndash;&gt;
         <dependency>
             <groupId>com.github.binarywang</groupId>
             <artifactId>wx-java-mp-spring-boot-starter</artifactId>
             <version>${wx-java-mp.version}</version>
         </dependency>
-        <!-- cos_api -->
+        &lt;!&ndash; cos_api &ndash;&gt;
         <dependency>
             <groupId>com.qcloud</groupId>
             <artifactId>cos_api</artifactId>
             <version>${cos_api.version}</version>
-        </dependency>
+        </dependency>-->
         <!-- knife4j -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>

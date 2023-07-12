@@ -16,14 +16,16 @@
     <dependencies>
         <!--binApi SDK-->
         <dependency>
-            <groupId>cn.ichensw</groupId>
+            <groupId>cn.bin</groupId>
             <artifactId>binapi-client-sdk</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!--binApi Common-->
         <dependency>
-            <groupId>cn.ichensw</groupId>
+            <groupId>cn.bin</groupId>
             <artifactId>bin-api-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <!-- SpringBoot Web -->
         <dependency>

@@ -17,14 +17,16 @@
     <dependencies>
         <!--binApi SDK-->
         <dependency>
-            <groupId>cn.ichensw</groupId>
+            <groupId>cn.bin</groupId>
             <artifactId>binapi-client-sdk</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!--binApi common-->
         <dependency>
-            <groupId>cn.ichensw</groupId>
+            <groupId>cn.bin</groupId>
             <artifactId>bin-api-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
 
         <!--引入Redis-->
