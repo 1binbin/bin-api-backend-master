@@ -36,5 +36,23 @@ public interface UserConstant {
      */
     String BAN_ROLE = "ban";
 
-    // endregion
+    /**
+     * 用户信息盐值
+     */
+    String USER_SALT = "bin";
+
+    /**
+     * 注册用户账号最短长度
+     */
+    Integer USER_ACCOUNT_LENGTH = 4;
+
+    /**
+     * 注册用户密码最短长度
+     */
+    Integer USER_PASSWORD_LENGHT =8;
+
+    /**
+     * 用户默认头像
+     */
+    String USER_AVTURAL = "https://image-bed-ichensw.oss-cn-hangzhou.aliyuncs.com/Multiavatar-f5871c303317a4dafbf6.png";
 }
