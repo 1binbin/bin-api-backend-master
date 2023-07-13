@@ -8,6 +8,7 @@ package com.binbin.binapiadmin.controller;
 
 import com.binbin.binapiadmin.config.QiniuyunOSSConfig;
 import com.binbin.binapiadmin.exception.BusinessException;
+import com.binbin.binapiadmin.service.UserService;
 import com.binbin.binapicommon.common.BaseResponse;
 import com.binbin.binapicommon.common.ErrorCode;
 import com.binbin.binapicommon.common.ResultUtils;
@@ -37,9 +38,11 @@ import java.util.Map;
 public class FileController {
     @Resource
     private QiniuyunOSSConfig qiniuyunOSSConfig;
+    @Resource
+    private UserService userService;
 
     /**
-     * 通用文件单个上传
+     * 通用文件单个上传并修改头像
      *
      * @param file    文件
      * @param request 域对象
@@ -51,10 +54,9 @@ public class FileController {
         if (request == null || file == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        Object attribute = request.getSession().getAttribute(UserConstant.USER_LOGIN_STATE);
-        User user = (User) attribute;
+        User user = userService.getLoginUser(request);
         if (user == null || user.getId() < 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new BusinessException(ErrorCode.PARAMS_ERROR,"请先登录");
         }
         Long userId = user.getId();
         String result = qiniuyunOSSConfig.upload(file, String.valueOf(userId));
@@ -62,6 +64,13 @@ public class FileController {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "上传失败");
         }
         map.put("url", result);
+        User newUser = new User();
+        newUser.setId(userId);
+        newUser.setUserAvatar(result);
+        boolean updateById = userService.updateById(newUser);
+        if (!updateById) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR,"修改头像失败");
+        }
         return ResultUtils.success(map);
     }
 }
