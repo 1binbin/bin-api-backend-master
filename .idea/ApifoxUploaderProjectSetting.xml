@@ -8,6 +8,7 @@
         <option value="# ModuleName:ProjectID" />
         <option value="bin-api-backend-master:3003380" />
         <option value="bin-api-admin:3003380" />
+        <option value="bin-api-interface:3003380" />
       </array>
     </option>
     <option name="apifoxSyncFolder" value="true" />
