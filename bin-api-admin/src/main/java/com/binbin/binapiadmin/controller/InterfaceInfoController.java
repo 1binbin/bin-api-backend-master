@@ -286,6 +286,6 @@ public class InterfaceInfoController {
             log.info("接口信息错误：{}", e.getMessage());
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口验证失败");
         }
-        return ResultUtils.success(null);
+        return ResultUtils.success(invokeResult);
     }
 }
