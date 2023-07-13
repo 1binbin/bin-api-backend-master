@@ -6,9 +6,12 @@
 
 package com.binbin.binapiadmin.service.impl.inner;
 
+import com.binbin.binapiadmin.service.InterfaceInfoService;
 import com.binbin.binapicommon.mode.entity.InterfaceInfo;
 import com.binbin.binapicommon.service.InnerInterfaceInfoService;
 import org.apache.dubbo.config.annotation.DubboService;
+
+import javax.annotation.Resource;
 
 /**
  * @Author hongxiaobin
@@ -16,6 +19,9 @@ import org.apache.dubbo.config.annotation.DubboService;
  */
 @DubboService
 public class InnerInterfaceInfoServiceImpl implements InnerInterfaceInfoService {
+    @Resource
+    private InterfaceInfoService interfaceInfoService;
+
     /**
      * 从数据库中查询模拟接口是否存在（请求路径、请求方法、请求参数）
      *
@@ -25,6 +31,9 @@ public class InnerInterfaceInfoServiceImpl implements InnerInterfaceInfoService 
      */
     @Override
     public InterfaceInfo getInterfaceInfo(String path, String method) {
-        return null;
+        return interfaceInfoService.query()
+                .eq("url", path)
+                .eq("method", method)
+                .one();
     }
 }
