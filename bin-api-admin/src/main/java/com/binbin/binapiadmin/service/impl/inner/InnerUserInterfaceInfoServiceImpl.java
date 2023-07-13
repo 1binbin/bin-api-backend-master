@@ -44,7 +44,7 @@ public class InnerUserInterfaceInfoServiceImpl implements InnerUserInterfaceInfo
         return userInterfaceInfoService.lambdaUpdate()
                 .eq(UserInterfaceInfo::getInterfaceInfoId, userInterfaceInfo)
                 .eq(UserInterfaceInfo::getUserId, userId)
-                .set(UserInterfaceInfo::getTotalNum, userInterfaceInfo.getTotalNum() - 1)
+                .set(UserInterfaceInfo::getTotalNum, userInterfaceInfo.getTotalNum() + 1)
                 .set(UserInterfaceInfo::getLeftNum, userInterfaceInfo.getLeftNum() - 1)
                 .update();
     }
