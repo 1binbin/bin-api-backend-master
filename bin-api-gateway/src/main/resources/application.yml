@@ -1,0 +1,33 @@
+server:
+  port: 8090
+
+# Gateway Rules
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: path_route
+          uri: http://localhost:8123
+          predicates:
+            - Path=/**
+  redis:
+    host: 192.168.56.135
+    port: 6379
+    database: 1
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: trace
+
+dubbo:
+  application:
+    name: bin-api-admin-provider
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    id: nacos-registry
+    address: nacos://192.168.79.1:8848
