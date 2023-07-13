@@ -110,7 +110,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户密码过短");
         }
         // 加密
-        String password = DigestUtils.md5DigestAsHex((UserConstant.USER_SALT + userAccount).getBytes());
+        String password = DigestUtils.md5DigestAsHex((UserConstant.USER_SALT + userPassword).getBytes());
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.eq("userAccount", userAccount);
         userQueryWrapper.eq("userPassword", password);
