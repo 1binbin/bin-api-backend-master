@@ -13,6 +13,7 @@ spring:
     database: 0
     host: 192.168.56.135
     port: 6379
+    password: 123456
   session:
     # 30 days
     timeout: 2592000

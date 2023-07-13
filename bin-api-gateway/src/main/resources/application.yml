@@ -14,6 +14,7 @@ spring:
     host: 192.168.56.135
     port: 6379
     database: 1
+    password: 123456
 
 logging:
   level:
