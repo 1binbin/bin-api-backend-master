@@ -19,4 +19,9 @@ public interface GateWayConstant {
      * IP地址列表
      */
     List<String> IP_WHITE_LIST = Collections.singletonList("127.0.0.1");
+
+    /**
+     * 请求超时时间
+     */
+    Integer TIMESTAMP_OUT_TIME = 300000;
 }
