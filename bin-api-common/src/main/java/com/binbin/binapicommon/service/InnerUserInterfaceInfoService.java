@@ -24,7 +24,7 @@ public interface InnerUserInterfaceInfoService {
      * @param userId          用户ID
      * @return boolean 是否执行成功
      */
-    boolean invokeCount(long interfaceInfoId, long userId);
+    boolean invokeCount(Long interfaceInfoId, Long userId);
 
     /**
      * 是否还有调用次数
@@ -52,6 +52,6 @@ public interface InnerUserInterfaceInfoService {
      * @param userId     用户id
      * @return UserInterfaceInfo 用户接口信息
      */
-    UserInterfaceInfo checkUserHasInterface(long interfaceId, long userId);
+    UserInterfaceInfo checkUserHasInterface(Long interfaceId, Long userId);
 
 }

@@ -32,7 +32,7 @@ public class InnerUserInterfaceInfoServiceImpl implements InnerUserInterfaceInfo
      * @return boolean 是否执行成功
      */
     @Override
-    public boolean invokeCount(long interfaceInfoId, long userId) {
+    public boolean invokeCount(Long interfaceInfoId, Long userId) {
         UserInterfaceInfo userInterfaceInfo = userInterfaceInfoService.lambdaQuery()
                 .eq(UserInterfaceInfo::getInterfaceInfoId, interfaceInfoId)
                 .eq(UserInterfaceInfo::getUserId, userId)
@@ -42,7 +42,7 @@ public class InnerUserInterfaceInfoServiceImpl implements InnerUserInterfaceInfo
         }
         // 修改调用次数
         return userInterfaceInfoService.lambdaUpdate()
-                .eq(UserInterfaceInfo::getInterfaceInfoId, userInterfaceInfo)
+                .eq(UserInterfaceInfo::getInterfaceInfoId, interfaceInfoId)
                 .eq(UserInterfaceInfo::getUserId, userId)
                 .set(UserInterfaceInfo::getTotalNum, userInterfaceInfo.getTotalNum() + 1)
                 .set(UserInterfaceInfo::getLeftNum, userInterfaceInfo.getLeftNum() - 1)
@@ -89,7 +89,7 @@ public class InnerUserInterfaceInfoServiceImpl implements InnerUserInterfaceInfo
      * @return UserInterfaceInfo 用户接口信息
      */
     @Override
-    public UserInterfaceInfo checkUserHasInterface(long interfaceId, long userId) {
+    public UserInterfaceInfo checkUserHasInterface(Long interfaceId, Long userId) {
         if (interfaceId <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
