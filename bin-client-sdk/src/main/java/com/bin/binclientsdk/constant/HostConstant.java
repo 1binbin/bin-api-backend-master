@@ -16,4 +16,9 @@ public interface HostConstant {
      * 网关地址
      */
     String GATEWAY_HOST = "http://localhost:8090";
+
+    /**
+     * 方法签名盐值
+     */
+    String SIGN_SALT = "1binbin";
 }
