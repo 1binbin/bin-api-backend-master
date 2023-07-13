@@ -60,8 +60,8 @@ public class BinApiClient {
         map.put("nonce", RandomUtil.randomNumbers(10));
         // 时间戳
         map.put("timestamp",String.valueOf(System.currentTimeMillis() / 1000));
-        map.put("sign",genSign(accessKey,secretKey));
         body = URLUtil.encode(body, CharsetUtil.CHARSET_UTF_8);
+        map.put("sign",genSign(body,secretKey));
         map.put("body", body);
         map.put("method", method);
         return map;
