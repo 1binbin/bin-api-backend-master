@@ -57,11 +57,11 @@ qiniu:
   # Private key
   secretKey: p7YuVGxXvyKszPNthjgfd5nvUraiqu0CvQzAFFsp
   # Storage space name
-  bucketName: 1binbin
+  bucketName: binopenapi
   # Domain name/path
-  path: http://rwp31uuk8.hn-bkt.clouddn.com
+  path: http://rxqlbkl6h.hn-bkt.clouddn.com
   # The file names stored in the space do not need to be deleted
-  documentName: wyyMusic/
+  documentName: openapi/
 
 dubbo:
   application:
