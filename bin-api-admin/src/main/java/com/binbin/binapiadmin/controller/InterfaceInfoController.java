@@ -138,7 +138,7 @@ public class InterfaceInfoController {
     }
 
     /**
-     * 分页获取接口信息列表
+     * 分页获取接口信息列表（所有）
      *
      * @param interfaceInfoQueryRequest 查询条件
      * @param request                   请求
@@ -158,9 +158,33 @@ public class InterfaceInfoController {
                 interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest));
         return ResultUtils.success(interfaceInfoService.getInterfaceInfoVOPage(interfaceInfoPage, request));
     }
+    /**
+     * 分页获取接口信息列表（当前用户）
+     *
+     * @param interfaceInfoQueryRequest 查询条件
+     * @param request                   请求
+     * @return 分页列表
+     */
+    @PostMapping("/one/list/page/vo")
+    public BaseResponse<Page<InterfaceInfoVO>> listInterfaceInfoVOByPageForOne(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest,
+                                                                         HttpServletRequest request) {
+        long current = interfaceInfoQueryRequest.getCurrent();
+        long size = interfaceInfoQueryRequest.getPageSize();
+        User loginUser = userService.getLoginUser(request);
+        Long userId = loginUser.getId();
+        interfaceInfoQueryRequest.setUserId(userId);
+        interfaceInfoQueryRequest.setSortField("createTime");
+        // 倒序排序
+        interfaceInfoQueryRequest.setSortOrder(CommonConstant.SORT_ORDER_DESC);
+        // 限制爬虫
+        ThrowUtil.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
+        Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size),
+                interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest));
+        return ResultUtils.success(interfaceInfoService.getInterfaceInfoVOPage(interfaceInfoPage, request));
+    }
 
     /**
-     * 根据当前用户ID分页获取接口信息列表
+     * 查询我的接口
      *
      * @param interfaceInfoQueryRequest 查询条件
      * @param request                   请求
@@ -172,9 +196,6 @@ public class InterfaceInfoController {
         long current = interfaceInfoQueryRequest.getCurrent();
         long size = interfaceInfoQueryRequest.getPageSize();
         interfaceInfoQueryRequest.setSortField("createTime");
-        User loginUser = userService.getLoginUser(request);
-        Long userId = loginUser.getId();
-        interfaceInfoQueryRequest.setUserId(userId);
         // 倒序排序
         interfaceInfoQueryRequest.setSortOrder(CommonConstant.SORT_ORDER_DESC);
         // 限制爬虫

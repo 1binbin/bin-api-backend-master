@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -59,7 +60,7 @@ public class AnalysisController {
         // 查询调用次数前3名的接口
         List<UserInterfaceInfo> userInterfaceInfoList = userInterfaceInfoService.listTopInvokeInterfaceInfo();
         if (userInterfaceInfoList.isEmpty()) {
-            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口信息不存在");
+            return ResultUtils.success(new ArrayList<>());
         }
         // 根据接口id分组
         Map<Long, List<UserInterfaceInfo>> interfaceInfoIdObjMap = userInterfaceInfoList.stream()

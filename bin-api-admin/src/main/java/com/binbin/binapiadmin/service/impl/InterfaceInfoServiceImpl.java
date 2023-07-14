@@ -275,6 +275,8 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
                 .collect(Collectors.toList());
 
 
+        System.out.println("==================================================================================");
+        System.out.println(interfaceInfoVOList);
         interfaceInfoVOPage.setRecords(interfaceInfoVOList);
         return interfaceInfoVOPage;
     }
