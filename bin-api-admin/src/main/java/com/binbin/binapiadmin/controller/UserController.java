@@ -56,11 +56,11 @@ public class UserController {
         String userAccount = userRegisterRequest.getUserAccount();
         String userPassword = userRegisterRequest.getUserPassword();
         String checkPassword = userRegisterRequest.getCheckPassword();
-        Boolean isAdmin = userRegisterRequest.getIsAdmin();
-        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
+        String isAdmin = userRegisterRequest.getIsAdmin();
+        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword,isAdmin)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        long result = userService.userRegister(userAccount, userPassword, checkPassword, isAdmin);
+        long result = userService.userRegister(userAccount, userPassword, checkPassword, UserConstant.ADMIN_ROLE.equals(isAdmin));
         return ResultUtils.success(result);
     }
 

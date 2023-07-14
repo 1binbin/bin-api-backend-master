@@ -28,5 +28,5 @@ public class UserRegisterRequest implements Serializable {
 
     private String checkPassword;
 
-    private Boolean isAdmin;
+    private String isAdmin;
 }
