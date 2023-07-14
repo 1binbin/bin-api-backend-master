@@ -75,4 +75,4 @@ dubbo:
 
 bin:
   gateway:
-    host: http://localhost:8090/invoke
+    host: http://localhost:8090

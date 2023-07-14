@@ -78,8 +78,7 @@ public class BinApiClient {
      * @throws UnsupportedEncodingException 异常
      */
     public String invokeInterface(String params, String host,String url, String method) throws UnsupportedEncodingException {
-        System.out.println(GATEWAY_HOST);
-        HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST)
+        HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST + "/invoke")
                 .header("Accept-Charset", CharsetUtil.UTF_8)
                 .addHeaders(getHeaderMap(host,url,params, method))
                 .body(params)
