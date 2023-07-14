@@ -47,8 +47,7 @@ public interface UserInterfaceInfoService extends IService<UserInterfaceInfo> {
     /**
      * 获取接口调用排名前 n 的接口信息
      *
-     * @param limit 前几名
      * @return 响应体
      */
-    List<UserInterfaceInfo> listTopInvokeInterfaceInfo(int limit);
+    List<UserInterfaceInfo> listTopInvokeInterfaceInfo();
 }

@@ -133,8 +133,8 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
      * @return 响应体
      */
     @Override
-    public List<UserInterfaceInfo> listTopInvokeInterfaceInfo(int limit) {
-        return userInterfaceInfoMapper.listTopInvokeInterfaceInfo(limit);
+    public List<UserInterfaceInfo> listTopInvokeInterfaceInfo() {
+        return userInterfaceInfoMapper.listTopInvokeInterfaceInfo();
     }
 }
 
