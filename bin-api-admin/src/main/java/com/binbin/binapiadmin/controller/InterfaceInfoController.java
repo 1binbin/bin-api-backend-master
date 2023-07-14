@@ -172,6 +172,9 @@ public class InterfaceInfoController {
         long current = interfaceInfoQueryRequest.getCurrent();
         long size = interfaceInfoQueryRequest.getPageSize();
         interfaceInfoQueryRequest.setSortField("createTime");
+        User loginUser = userService.getLoginUser(request);
+        Long userId = loginUser.getId();
+        interfaceInfoQueryRequest.setUserId(userId);
         // 倒序排序
         interfaceInfoQueryRequest.setSortOrder(CommonConstant.SORT_ORDER_DESC);
         // 限制爬虫
