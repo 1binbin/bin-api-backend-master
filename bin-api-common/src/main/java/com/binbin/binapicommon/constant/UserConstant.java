@@ -54,5 +54,5 @@ public interface UserConstant {
     /**
      * 用户默认头像
      */
-    String USER_AVTURAL = "https://image-bed-ichensw.oss-cn-hangzhou.aliyuncs.com/Multiavatar-f5871c303317a4dafbf6.png";
+    String USER_AVTURAL = "http://rxqlbkl6h.hn-bkt.clouddn.com/openapi/common/commonAva.png";
 }

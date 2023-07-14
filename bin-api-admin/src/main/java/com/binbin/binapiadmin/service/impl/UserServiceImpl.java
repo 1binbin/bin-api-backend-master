@@ -38,15 +38,16 @@ import java.util.stream.Collectors;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     /**
-     * 用户注册
+     * 普通用户注册
      *
      * @param userAccount   账号
      * @param userPassword  密码
      * @param checkPassword 确认密码
+     * @param isAdmin       是否为管理员
      * @return 用户id
      */
     @Override
-    public long userRegister(String userAccount, String userPassword, String checkPassword) {
+    public long userRegister(String userAccount, String userPassword, String checkPassword, Boolean isAdmin) {
         // 校验
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数为空");
@@ -80,6 +81,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             user.setUserPassword(encrtPassword);
             user.setAccessKey(accessKey);
             user.setSecretKey(secretKey);
+            if (isAdmin) {
+                user.setUserRole("admin");
+            }
             // TODO: 2023/7/12 0012 替换默认照片
             user.setUserAvatar(UserConstant.USER_AVTURAL);
             boolean save = this.save(user);
@@ -229,8 +233,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest) {
-        if (userQueryRequest==null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR,"请求参数为空");
+        if (userQueryRequest == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
         }
         Long id = userQueryRequest.getId();
         String unionId = userQueryRequest.getUnionId();

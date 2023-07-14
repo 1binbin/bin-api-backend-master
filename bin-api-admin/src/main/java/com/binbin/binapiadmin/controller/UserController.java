@@ -43,7 +43,7 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 用户注册
+     * 普通用户注册
      *
      * @param userRegisterRequest 用户信息
      * @return 响应体
@@ -56,10 +56,11 @@ public class UserController {
         String userAccount = userRegisterRequest.getUserAccount();
         String userPassword = userRegisterRequest.getUserPassword();
         String checkPassword = userRegisterRequest.getCheckPassword();
+        Boolean isAdmin = userRegisterRequest.getIsAdmin();
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        long result = userService.userRegister(userAccount, userPassword, checkPassword);
+        long result = userService.userRegister(userAccount, userPassword, checkPassword, isAdmin);
         return ResultUtils.success(result);
     }
 
@@ -235,7 +236,7 @@ public class UserController {
      * 更新用户 secretKey
      *
      * @param idRequest 请求参数
-     * @param request 域对象
+     * @param request   域对象
      * @return 响应体
      */
     @PostMapping("/update/secret_key")

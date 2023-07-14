@@ -6,6 +6,7 @@
 
 package com.binbin.binapicommon.mode.dto.user;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -26,4 +27,6 @@ public class UserRegisterRequest implements Serializable {
     private String userPassword;
 
     private String checkPassword;
+
+    private Boolean isAdmin;
 }
