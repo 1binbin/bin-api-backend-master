@@ -64,7 +64,7 @@ public class BinApiClient {
         map.put("sign",genSign(body,secretKey));
         map.put("body", body);
         map.put("url",url);
-        map.put("host",host);
+        map.put("realhost",host);
         map.put("method", method);
         return map;
     }
@@ -78,7 +78,7 @@ public class BinApiClient {
      * @throws UnsupportedEncodingException 异常
      */
     public String invokeInterface(String params, String host,String url, String method) throws UnsupportedEncodingException {
-        // TODO: 2023/7/12 0012 匹配GET请求
+        System.out.println(GATEWAY_HOST);
         HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST)
                 .header("Accept-Charset", CharsetUtil.UTF_8)
                 .addHeaders(getHeaderMap(host,url,params, method))

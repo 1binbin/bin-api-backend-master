@@ -22,16 +22,5 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class NameController {
 
-    /**
-     * 获取名称
-     *
-     * @param user    用户信息
-     * @param request 域对象
-     * @return 响应体名称
-     */
-    @PostMapping("/api/name/user")
-    public String getUserNameByPost(@RequestBody User user,
-                                    HttpServletRequest request) {
-        return "POST——你的用户名字是：" + user.getUserName();
-    }
+
 }
