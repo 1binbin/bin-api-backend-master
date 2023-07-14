@@ -1,5 +1,5 @@
 /*
- * com.binbin.binapiinterface.controller.InterestingController, 2023-07-13
+ * com.binbin.binapiinterface.controller.InvokeController, 2023-07-13
  * Copyright© 2023 hongxiaobin(1binbin),Inc. All rights reserved.
  * Github link : http://github.com/1binbin
  */
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Time 2023/7/13 0013-9:29:02
  */
 @RestController
-public class InterestingController {
+public class InvokeController {
 
     /**
      * 统一请求接口
