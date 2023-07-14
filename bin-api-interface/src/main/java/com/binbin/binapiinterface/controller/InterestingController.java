@@ -10,6 +10,8 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 public class InterestingController {
+    @Value("server.port")
+    private String port;
 
     /**
      * 获取随机头像
@@ -36,6 +40,7 @@ public class InterestingController {
         String body = URLUtil.decode(request.getHeader("body"), CharsetUtil.CHARSET_UTF_8);
         HttpResponse httpResponse = HttpRequest.get(url + "?" + body)
                 .execute();
+        System.out.println("获取随机头像");
         return httpResponse.body();
     }
 
@@ -51,6 +56,7 @@ public class InterestingController {
         String body = URLUtil.decode(request.getHeader("body"), CharsetUtil.CHARSET_UTF_8);
         HttpResponse httpResponse = HttpRequest.get(url + "?" + body)
                 .execute();
+        System.out.println("获取随机照片");
         return httpResponse.body();
     }
 
@@ -60,14 +66,15 @@ public class InterestingController {
      * @param request 域对象
      * @return 响应体
      */
-    @PostMapping("/yan/api.php")
+/*    @PostMapping("/yan/api.php")
     public String poisonChicken(HttpServletRequest request) {
         String url = "http://api.btstu.cn/yan/api.php";
         String body = URLUtil.decode(request.getHeader("body"), CharsetUtil.CHARSET_UTF_8);
         HttpResponse httpResponse = HttpRequest.get(url + "?" + body)
                 .execute();
+        System.out.println("获取随机语录");
         return httpResponse.body();
-    }
+    }*/
 
     /**
      * 长网址还原
@@ -81,6 +88,35 @@ public class InterestingController {
         String body = URLUtil.decode(request.getHeader("body"), CharsetUtil.CHARSET_UTF_8);
         HttpResponse httpResponse = HttpRequest.get(url + "?" + body)
                 .execute();
+        System.out.println("长网址还原");
+        return httpResponse.body();
+    }
+
+    @GetMapping("/error")
+    public String errorResponse() {
+        return "请求方法不支持，只支持 GET 或 POST";
+    }
+
+    @PostMapping("/invoke")
+    public String invoke(HttpServletRequest request) {
+        HttpResponse httpResponse;
+        String host = request.getHeader("host");
+        String url = request.getHeader("url");
+        // 实际请求参数
+        String body = URLUtil.decode(request.getHeader("body"), CharsetUtil.CHARSET_UTF_8);
+        // 完整路径
+        String fullUrl = host + url;
+        String method = request.getHeader("method");
+        switch (method) {
+            case "GET":
+                httpResponse = HttpRequest.get(fullUrl + "?" + body).execute();
+                break;
+            case "POST":
+                httpResponse = HttpRequest.post(fullUrl).body(body).execute();
+                break;
+            default:
+                httpResponse = HttpRequest.get(port + "/error").execute();
+        }
         return httpResponse.body();
     }
 }

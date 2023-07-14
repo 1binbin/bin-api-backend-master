@@ -84,7 +84,8 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
         // 请求日志
         ServerHttpRequest request = exchange.getRequest();
         String hostString = Objects.requireNonNull(request.getLocalAddress()).getHostString();
-        String path = request.getPath().value();
+        HttpHeaders headers = request.getHeaders();
+        String path = headers.getFirst("url");
         log.info("请求唯一标识：{}", request.getId());
         log.info("请求路径：{}", path);
         log.info("请求参数：{}", request.getQueryParams());
@@ -97,7 +98,6 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
             return handleNoAuth(response);
         }
         // 用户鉴权（判断ak，sk）
-        HttpHeaders headers = request.getHeaders();
         String accessKey = headers.getFirst("accessKey");
         String timestamp = headers.getFirst("timestamp");
         String nonce = headers.getFirst("nonce");

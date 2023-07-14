@@ -203,13 +203,14 @@ public class InterfaceInfoController {
         String requestParams = interfaceInfoInvokeRequest.getRequestParams();
         // 接口信息
         String url = interfaceInfoById.getUrl();
+        String host = interfaceInfoById.getHost();
         String method = interfaceInfoById.getMethod();
         BinApiClient binApiClient = interfaceInfoService.getBinApiClient(request);
         // 设置网关地址
         binApiClient.setGatewayHost(gatewayConfig.getHost());
         // 验证接口
         try {
-            String result = binApiClient.invokeInterface(requestParams, url, method);
+            String result = binApiClient.invokeInterface(requestParams,host, url, method);
             if (StringUtils.isAnyBlank(result)) {
                 throw new BusinessException(ErrorCode.SYSTEM_ERROR, "响应结果为空");
             }
@@ -272,13 +273,14 @@ public class InterfaceInfoController {
 
         // 调用
         String url = interfaceInfoById.getUrl();
+        String host = interfaceInfoById.getHost();
         String method = interfaceInfoById.getMethod();
         String requestParams = interfaceInfoInvokeRequest.getRequestParams();
         BinApiClient binApiClient = interfaceInfoService.getBinApiClient(request);
         binApiClient.setGatewayHost(gatewayConfig.getHost());
         String invokeResult;
         try {
-            invokeResult = binApiClient.invokeInterface(requestParams, url, method);
+            invokeResult = binApiClient.invokeInterface(requestParams, host,url, method);
             if (StringUtils.isAnyBlank(invokeResult)) {
                 throw new BusinessException(ErrorCode.SYSTEM_ERROR, "响应结果为空");
             }

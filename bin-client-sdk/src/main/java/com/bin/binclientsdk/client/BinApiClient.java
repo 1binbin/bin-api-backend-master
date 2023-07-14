@@ -53,7 +53,7 @@ public class BinApiClient {
      * @return 请求头
      * @throws UnsupportedEncodingException 异常
      */
-    private Map<String,String> getHeaderMap(String body,String method) throws UnsupportedEncodingException {
+    private Map<String,String> getHeaderMap(String host,String url,String body,String method) throws UnsupportedEncodingException {
         HashMap<String, String> map = new HashMap<>();
         map.put("accessKey",accessKey);
         // 随机数，伪装请求头
@@ -63,6 +63,8 @@ public class BinApiClient {
         body = URLUtil.encode(body, CharsetUtil.CHARSET_UTF_8);
         map.put("sign",genSign(body,secretKey));
         map.put("body", body);
+        map.put("url",url);
+        map.put("host",host);
         map.put("method", method);
         return map;
     }
@@ -75,11 +77,11 @@ public class BinApiClient {
      * @return 响应体
      * @throws UnsupportedEncodingException 异常
      */
-    public String invokeInterface(String params, String url, String method) throws UnsupportedEncodingException {
+    public String invokeInterface(String params, String host,String url, String method) throws UnsupportedEncodingException {
         // TODO: 2023/7/12 0012 匹配GET请求
-        HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST + url)
+        HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST)
                 .header("Accept-Charset", CharsetUtil.UTF_8)
-                .addHeaders(getHeaderMap(params, method))
+                .addHeaders(getHeaderMap(host,url,params, method))
                 .body(params)
                 .execute();
         return JSONUtil.formatJsonStr(httpResponse.body());
