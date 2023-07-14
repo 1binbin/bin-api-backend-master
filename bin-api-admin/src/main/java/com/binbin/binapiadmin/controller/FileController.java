@@ -54,6 +54,7 @@ public class FileController {
         if (request == null || file == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
+        // TODO: 2023/7/14 0014 无法获取登录用户
         User user = userService.getLoginUser(request);
         if (user == null || user.getId() < 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR,"请先登录");
