@@ -147,17 +147,9 @@ public class InterfaceInfoController {
     @PostMapping("/list/page/vo")
     public BaseResponse<Page<InterfaceInfoVO>> listInterfaceInfoVOByPage(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest,
                                                                          HttpServletRequest request) {
-        long current = interfaceInfoQueryRequest.getCurrent();
-        long size = interfaceInfoQueryRequest.getPageSize();
-        interfaceInfoQueryRequest.setSortField("createTime");
-        // 倒序排序
-        interfaceInfoQueryRequest.setSortOrder(CommonConstant.SORT_ORDER_DESC);
-        // 限制爬虫
-        ThrowUtil.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
-        Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size),
-                interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest));
-        return ResultUtils.success(interfaceInfoService.getInterfaceInfoVOPage(interfaceInfoPage, request));
+        return getListInterfaceInfoVOByUserIdPage(interfaceInfoQueryRequest, request, false);
     }
+
     /**
      * 分页获取接口信息列表（当前用户）
      *
@@ -167,20 +159,8 @@ public class InterfaceInfoController {
      */
     @PostMapping("/one/list/page/vo")
     public BaseResponse<Page<InterfaceInfoVO>> listInterfaceInfoVOByPageForOne(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest,
-                                                                         HttpServletRequest request) {
-        long current = interfaceInfoQueryRequest.getCurrent();
-        long size = interfaceInfoQueryRequest.getPageSize();
-        User loginUser = userService.getLoginUser(request);
-        Long userId = loginUser.getId();
-        interfaceInfoQueryRequest.setUserId(userId);
-        interfaceInfoQueryRequest.setSortField("createTime");
-        // 倒序排序
-        interfaceInfoQueryRequest.setSortOrder(CommonConstant.SORT_ORDER_DESC);
-        // 限制爬虫
-        ThrowUtil.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
-        Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size),
-                interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest));
-        return ResultUtils.success(interfaceInfoService.getInterfaceInfoVOPage(interfaceInfoPage, request));
+                                                                               HttpServletRequest request) {
+        return getListInterfaceInfoVOByUserIdPage(interfaceInfoQueryRequest, request, true);
     }
 
     /**
@@ -234,7 +214,7 @@ public class InterfaceInfoController {
         binApiClient.setGatewayHost(gatewayConfig.getHost());
         // 验证接口
         try {
-            String result = binApiClient.invokeInterface(requestParams,host, url, method);
+            String result = binApiClient.invokeInterface(requestParams, host, url, method);
             if (StringUtils.isAnyBlank(result)) {
                 throw new BusinessException(ErrorCode.SYSTEM_ERROR, "响应结果为空");
             }
@@ -304,7 +284,7 @@ public class InterfaceInfoController {
         binApiClient.setGatewayHost(gatewayConfig.getHost());
         String invokeResult;
         try {
-            invokeResult = binApiClient.invokeInterface(requestParams, host,url, method);
+            invokeResult = binApiClient.invokeInterface(requestParams, host, url, method);
             if (StringUtils.isAnyBlank(invokeResult)) {
                 throw new BusinessException(ErrorCode.SYSTEM_ERROR, "响应结果为空");
             }
@@ -313,5 +293,32 @@ public class InterfaceInfoController {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口验证失败");
         }
         return ResultUtils.success(invokeResult);
+    }
+
+    /**
+     * 获取用户接口列表
+     *
+     * @param interfaceInfoQueryRequest 请求参数
+     * @param request                   域对象
+     * @param isUser                    是否只查询当前用户true——是
+     * @return 分页对象
+     */
+    private BaseResponse<Page<InterfaceInfoVO>> getListInterfaceInfoVOByUserIdPage(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest,
+                                                                                   HttpServletRequest request, Boolean isUser) {
+        long current = interfaceInfoQueryRequest.getCurrent();
+        long size = interfaceInfoQueryRequest.getPageSize();
+        if (isUser) {
+            User loginUser = userService.getLoginUser(request);
+            Long userId = loginUser.getId();
+            interfaceInfoQueryRequest.setUserId(userId);
+        }
+        interfaceInfoQueryRequest.setSortField("createTime");
+        // 倒序排序
+        interfaceInfoQueryRequest.setSortOrder(CommonConstant.SORT_ORDER_DESC);
+        // 限制爬虫
+        ThrowUtil.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
+        Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size),
+                interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest));
+        return ResultUtils.success(interfaceInfoService.getInterfaceInfoVOPage(interfaceInfoPage, request));
     }
 }
