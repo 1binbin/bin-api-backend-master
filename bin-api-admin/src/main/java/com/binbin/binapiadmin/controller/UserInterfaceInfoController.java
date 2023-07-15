@@ -17,6 +17,7 @@ import com.binbin.binapicommon.common.DeleteRequest;
 import com.binbin.binapicommon.common.ErrorCode;
 import com.binbin.binapicommon.common.ResultUtils;
 import com.binbin.binapicommon.constant.UserConstant;
+import com.binbin.binapicommon.constant.UserInterfaceInfoConstant;
 import com.binbin.binapicommon.mode.dto.userinterfaceinfo.UserInterfaceInfoAddRequest;
 import com.binbin.binapicommon.mode.dto.userinterfaceinfo.UserInterfaceInfoQueryRequest;
 import com.binbin.binapicommon.mode.dto.userinterfaceinfo.UserInterfaceInfoUpdateRequest;
@@ -61,7 +62,7 @@ public class UserInterfaceInfoController {
         UserInterfaceInfo userInterfaceInfo = new UserInterfaceInfo();
         BeanUtils.copyProperties(userInterfaceInfoAddRequest, userInterfaceInfo);
         // TODO: 2023/7/13 0013 添加收费接口,并且根据费用修改剩余次数
-        userInterfaceInfo.setLeftNum(99999999);
+        userInterfaceInfo.setLeftNum(UserInterfaceInfoConstant.DEFAULT_INTERFACE_NUMBER);
         User loginUser = userService.getLoginUser(request);
         userInterfaceInfo.setUserId(loginUser.getId());
         userInterfaceInfoService.validUserInterfaceInfo(userInterfaceInfo, true);
