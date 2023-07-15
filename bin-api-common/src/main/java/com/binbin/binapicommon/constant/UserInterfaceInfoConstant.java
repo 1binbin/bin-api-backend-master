@@ -6,6 +6,8 @@
 
 package com.binbin.binapicommon.constant;
 
+import cn.hutool.core.util.RandomUtil;
+
 /**
  * 用户接口信息常量
  *
@@ -16,5 +18,5 @@ public interface UserInterfaceInfoConstant {
     /**
      * 开通接口默认数量
      */
-    Integer DEFAULT_INTERFACE_NUMBER = 10000;
+    Integer DEFAULT_INTERFACE_NUMBER = RandomUtil.randomInt(1000,10000);
 }
