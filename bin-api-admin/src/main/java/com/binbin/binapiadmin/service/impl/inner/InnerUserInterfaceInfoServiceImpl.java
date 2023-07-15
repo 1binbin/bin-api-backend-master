@@ -9,6 +9,7 @@ package com.binbin.binapiadmin.service.impl.inner;
 import com.binbin.binapiadmin.exception.BusinessException;
 import com.binbin.binapiadmin.service.UserInterfaceInfoService;
 import com.binbin.binapicommon.common.ErrorCode;
+import com.binbin.binapicommon.constant.UserInterfaceInfoConstant;
 import com.binbin.binapicommon.mode.entity.UserInterfaceInfo;
 import com.binbin.binapicommon.service.InnerUserInterfaceInfoService;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -77,7 +78,7 @@ public class InnerUserInterfaceInfoServiceImpl implements InnerUserInterfaceInfo
         userInterfaceInfo.setUserId(userId);
         userInterfaceInfo.setInterfaceInfoId(interfaceId);
         // TODO: 2023/7/13 0013 修改默认次数，根据购买规则
-        userInterfaceInfo.setLeftNum(99999);
+        userInterfaceInfo.setLeftNum(UserInterfaceInfoConstant.DEFAULT_INTERFACE_NUMBER);
         return null;
     }
 

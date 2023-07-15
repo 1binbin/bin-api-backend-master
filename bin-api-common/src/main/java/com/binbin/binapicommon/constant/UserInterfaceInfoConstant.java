@@ -16,5 +16,5 @@ public interface UserInterfaceInfoConstant {
     /**
      * 开通接口默认数量
      */
-    Integer DEFAULT_INTERFACE_NUMBER = 99999;
+    Integer DEFAULT_INTERFACE_NUMBER = 10000;
 }
