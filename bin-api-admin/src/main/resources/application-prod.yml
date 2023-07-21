@@ -1,1 +1,7 @@
-
+# Public configuration class
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://gz-cynosdbmysql-grp-osm3y97f.sql.tencentcdb.com:20297/binapi?serverTimezone=Asia/Shanghai
+    username: root
+    password: Abin214289!!
