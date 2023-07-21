@@ -3,6 +3,8 @@ server:
 
 # Gateway Rules
 spring:
+  profiles:
+    active: prod
   cloud:
     gateway:
       routes:

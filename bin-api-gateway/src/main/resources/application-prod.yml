@@ -1,0 +1,17 @@
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    isPassword: 0
+    password: 123456
+
+dubbo:
+  application:
+    name: bin-api-admin-provider
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    id: nacos-registry
+    address: nacos://10.0.8.10:8848

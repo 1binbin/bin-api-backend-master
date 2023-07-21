@@ -3,7 +3,7 @@ spring:
   application:
     name: bin-api-backend-master
   profiles:
-    active: prod
+    active: dev
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -14,6 +14,7 @@ spring:
     host: 192.168.56.135
     port: 6379
     password: 123456
+    isPassword: 1
   session:
     # 30 days
     timeout: 2592000
