@@ -10,6 +10,7 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Time 2023/7/13 0013-9:29:02
  */
 @RestController
+@Slf4j
 public class InvokeController {
 
     /**
@@ -44,17 +46,21 @@ public class InvokeController {
             case "GET":
             case "GET/POST":
                 httpResponse = HttpRequest.get(fullUrl + "?" + body).execute();
+                log.info("发送GET请求：{}", fullUrl + "?" + body);
                 break;
             case "POST":
             case "POST/GET":
                 httpResponse = HttpRequest.post(fullUrl).body(body).execute();
+                log.info("响应体：{}", httpResponse.body());
                 break;
             default:
+                log.error("非法请求403");
                 return "请求方法不支持，只支持 GET 或 POST";
         }
         if (httpResponse.body() == null) {
             return "接口请求结果为空";
         }
+        log.info("响应体：{}", httpResponse.body());
         return httpResponse.body();
     }
 }
