@@ -5,3 +5,10 @@ spring:
     url: jdbc:mysql://gz-cynosdbmysql-grp-osm3y97f.sql.tencentcdb.com:20297/binapi?serverTimezone=Asia/Shanghai
     username: root
     password: Abin214289!!
+
+  # redis
+  redis:
+    database: 0
+    host: 192.168.56.135
+    port: 6379
+    password: 123456
