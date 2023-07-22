@@ -210,7 +210,7 @@ public class InterfaceInfoController {
         String url = interfaceInfoById.getUrl();
         String host = interfaceInfoById.getHost();
         String method = interfaceInfoById.getMethod();
-        BinApiClient binApiClient = interfaceInfoService.getBinApiClient(request,interfaceInfoById);
+        BinApiClient binApiClient = interfaceInfoService.getBinApiClient(request,interfaceInfoById,false);
         if (binApiClient == null) {
             return ResultUtils.fail(ErrorCode.OPERATION_ERROR);
         }
@@ -284,7 +284,7 @@ public class InterfaceInfoController {
         String host = interfaceInfoById.getHost();
         String method = interfaceInfoById.getMethod();
         String requestParams = interfaceInfoInvokeRequest.getRequestParams();
-        BinApiClient binApiClient = interfaceInfoService.getBinApiClient(request,interfaceInfoById);
+        BinApiClient binApiClient = interfaceInfoService.getBinApiClient(request,interfaceInfoById,true);
         if (binApiClient == null) {
             return ResultUtils.fail(ErrorCode.OPERATION_ERROR);
         }

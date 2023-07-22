@@ -57,9 +57,11 @@ public interface InterfaceInfoService extends IService<InterfaceInfo> {
      * 创建SDK客户端
      *
      * @param request 域对象
+     * @param isUser 是否为用户
+     * @param interfaceInfo 接口信息
      * @return SDK客户端
      */
-    BinApiClient getBinApiClient(HttpServletRequest request,InterfaceInfo interfaceInfo);
+    BinApiClient getBinApiClient(HttpServletRequest request,InterfaceInfo interfaceInfo,boolean isUser);
 
     /**
      * 修改接口信息

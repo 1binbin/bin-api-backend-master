@@ -204,19 +204,21 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
      * @return SDK客户端
      */
     @Override
-    public BinApiClient getBinApiClient(HttpServletRequest request, InterfaceInfo interfaceInfo) {
+    public BinApiClient getBinApiClient(HttpServletRequest request, InterfaceInfo interfaceInfo,boolean isUser) {
         User loginUser = userService.getLoginUser(request);
-        Long userId = loginUser.getId();
-        if (interfaceInfo == null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
-        }
-        Long interfaceInfoId = interfaceInfo.getId();
-        UserInterfaceInfo userInterfaceInfo = userInterfaceInfoService.lambdaQuery()
-                .eq(UserInterfaceInfo::getInterfaceInfoId, interfaceInfoId)
-                .eq(UserInterfaceInfo::getUserId, userId)
-                .one();
-        if (userInterfaceInfo == null || userInterfaceInfo.getLeftNum() <= 0) {
-            return null;
+        if (isUser) {
+            Long userId = loginUser.getId();
+            if (interfaceInfo == null) {
+                throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            }
+            Long interfaceInfoId = interfaceInfo.getId();
+            UserInterfaceInfo userInterfaceInfo = userInterfaceInfoService.lambdaQuery()
+                    .eq(UserInterfaceInfo::getInterfaceInfoId, interfaceInfoId)
+                    .eq(UserInterfaceInfo::getUserId, userId)
+                    .one();
+            if (userInterfaceInfo == null || userInterfaceInfo.getLeftNum() <= 0) {
+                return null;
+            }
         }
         String accessKey = loginUser.getAccessKey();
         String secretKey = loginUser.getSecretKey();
