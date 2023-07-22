@@ -9,6 +9,17 @@ spring:
   # redis
   redis:
     database: 0
-    host: 192.168.56.135
+    host: localhost
     port: 6379
-    password: 123456
+    isPassword: 0
+
+
+dubbo:
+  application:
+    name: bin-api-admin-provider
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    id: nacos-registry
+    address: nacos://10.0.8.10:8848
