@@ -10,6 +10,7 @@ import lombok.Data;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,13 +29,19 @@ public class RedissonConfig {
     private String port;
     private String password;
     private Integer database;
+    @Value("${spring.redis.isPassword}")
+    private Integer isPassword;
 
     @Bean
     public RedissonClient redissonClient() {
         // 1. 创建配置
         Config config = new Config();
         String redisAddress = String.format("redis://%s:%s", host, port);
-        config.useSingleServer().setAddress(redisAddress).setDatabase(database).setPassword(password);
+        if (isPassword == 0){
+            config.useSingleServer().setAddress(redisAddress).setDatabase(database);
+        }else {
+            config.useSingleServer().setAddress(redisAddress).setDatabase(database).setPassword(password);
+        }
         // 2. 创建实例
         return Redisson.create(config);
     }
