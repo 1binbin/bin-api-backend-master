@@ -20,5 +20,5 @@ public interface UserInterfaceInfoConstant {
      */
     Integer DEFAULT_INTERFACE_NUMBER = 1;
 
-    Integer MAX_INTERFACE_NUMBER = 99999999;
+    Integer MAX_INTERFACE_NUMBER = 999999;
 }

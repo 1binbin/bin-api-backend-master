@@ -210,7 +210,10 @@ public class InterfaceInfoController {
         String url = interfaceInfoById.getUrl();
         String host = interfaceInfoById.getHost();
         String method = interfaceInfoById.getMethod();
-        BinApiClient binApiClient = interfaceInfoService.getBinApiClient(request);
+        BinApiClient binApiClient = interfaceInfoService.getBinApiClient(request,interfaceInfoById);
+        if (binApiClient == null) {
+            return ResultUtils.fail(ErrorCode.OPERATION_ERROR);
+        }
         // 设置网关地址
         binApiClient.setGatewayHost(gatewayConfig.getHost());
         // 验证接口
@@ -281,7 +284,10 @@ public class InterfaceInfoController {
         String host = interfaceInfoById.getHost();
         String method = interfaceInfoById.getMethod();
         String requestParams = interfaceInfoInvokeRequest.getRequestParams();
-        BinApiClient binApiClient = interfaceInfoService.getBinApiClient(request);
+        BinApiClient binApiClient = interfaceInfoService.getBinApiClient(request,interfaceInfoById);
+        if (binApiClient == null) {
+            return ResultUtils.fail(ErrorCode.OPERATION_ERROR);
+        }
         binApiClient.setGatewayHost(gatewayConfig.getHost());
         String invokeResult;
         try {
