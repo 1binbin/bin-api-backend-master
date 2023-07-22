@@ -18,6 +18,7 @@
             <result property="status" column="status" jdbcType="INTEGER"/>
             <result property="method" column="method" jdbcType="VARCHAR"/>
             <result property="userId" column="userId" jdbcType="BIGINT"/>
+            <result property="price" column="price" jdbcType="DOUBLE"/>
             <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
             <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
@@ -28,7 +29,7 @@
         url,host,requestParams,
         requestParamsRemark,responseParamsRemark,requestHeader,
         responseHeader,status,method,
-        userId,createTime,updateTime,
+        userId,createTime,updateTime,price
         isDelete
     </sql>
 </mapper>
