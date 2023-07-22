@@ -56,7 +56,10 @@ public class PayInterfaceInfoController {
         UserInterfaceInfo info = userInterfaceInfoService.lambdaQuery()
                 .eq(UserInterfaceInfo::getInterfaceInfoId, interfaceInfoId)
                 .eq(UserInterfaceInfo::getUserId, userId).one();
-        if (payNum +info.getLeftNum() > UserInterfaceInfoConstant.MAX_INTERFACE_NUMBER){
+        if (info == null){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR,"接口不存在");
+        }
+        if (payNum + info.getLeftNum() > UserInterfaceInfoConstant.MAX_INTERFACE_NUMBER) {
             return ResultUtils.fail(ErrorCode.OPERATION_ERROR);
         }
         boolean result = userInterfaceInfoService.lambdaUpdate()
