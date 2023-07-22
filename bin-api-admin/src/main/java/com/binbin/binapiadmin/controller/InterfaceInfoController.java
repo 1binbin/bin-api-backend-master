@@ -72,6 +72,7 @@ public class InterfaceInfoController {
         interfaceInfo.setUserId(loginUser.getId());
         interfaceInfo.setRequestParamsRemark(JSONUtil.toJsonStr(interfaceInfoAddRequest.getRequestParamsRemark()));
         interfaceInfo.setResponseParamsRemark(JSONUtil.toJsonStr(interfaceInfoAddRequest.getResponseParamsRemark()));
+        interfaceInfo.setPrice(interfaceInfoAddRequest.getPrice());
         boolean result = interfaceInfoService.save(interfaceInfo);
         ThrowUtil.throwIf(!result, ErrorCode.OPERATION_ERROR);
         long newInterfaceInfoId = interfaceInfo.getId();
