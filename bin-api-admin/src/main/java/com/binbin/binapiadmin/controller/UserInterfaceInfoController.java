@@ -61,7 +61,6 @@ public class UserInterfaceInfoController {
         }
         UserInterfaceInfo userInterfaceInfo = new UserInterfaceInfo();
         BeanUtils.copyProperties(userInterfaceInfoAddRequest, userInterfaceInfo);
-        // TODO: 2023/7/13 0013 添加收费接口,并且根据费用修改剩余次数
         userInterfaceInfo.setLeftNum(UserInterfaceInfoConstant.DEFAULT_INTERFACE_NUMBER);
         User loginUser = userService.getLoginUser(request);
         userInterfaceInfo.setUserId(loginUser.getId());

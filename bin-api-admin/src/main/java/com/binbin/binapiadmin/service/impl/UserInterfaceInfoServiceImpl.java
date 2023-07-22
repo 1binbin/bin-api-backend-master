@@ -17,11 +17,11 @@ import com.binbin.binapiadmin.service.UserInterfaceInfoService;
 import com.binbin.binapiadmin.utils.SqlUtils;
 import com.binbin.binapicommon.common.ErrorCode;
 import com.binbin.binapicommon.constant.CommonConstant;
+import com.binbin.binapicommon.mode.dto.payInterfaceInfo.PayRequest;
 import com.binbin.binapicommon.mode.dto.userinterfaceinfo.UserInterfaceInfoQueryRequest;
 import com.binbin.binapicommon.mode.entity.UserInterfaceInfo;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.tomcat.util.buf.UEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,10 +29,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
-* @author hongxiaobin
-* @description 针对表【user_interface_info(用户调用接口关系)】的数据库操作Service实现
-* @createDate 2023-07-12 17:02:53
-*/
+ * @author hongxiaobin
+ * @description 针对表【user_interface_info(用户调用接口关系)】的数据库操作Service实现
+ * @createDate 2023-07-12 17:02:53
+ */
 @Service
 public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoMapper, UserInterfaceInfo>
         implements UserInterfaceInfoService {
@@ -129,7 +129,7 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
     /**
      * 获取接口调用排名前 n 的接口信息
      *
-     * @param limit 前几名
+     * @param  前几名
      * @return 响应体
      */
     @Override

@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 @Data
 public class PayRequest implements Serializable {
-    private Integer interfaceInfoId;
+    private Long interfaceInfoId;
     private Integer payNum;
     private static final long serialVersionUID = -5842362260147083227L;
 }
