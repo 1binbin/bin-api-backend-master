@@ -67,4 +67,9 @@ public class InterfaceInfoAddRequest implements Serializable {
      * 请求类型
      */
     private String method;
+
+    /**
+     * 接口价格
+     */
+    private Double price;
 }

@@ -79,6 +79,11 @@ public class InterfaceInfoQueryRequest extends PageRequest implements Serializab
      * 创建人
      */
     private Long userId;
+
+    /**
+     * 接口价格
+     */
+    private Double price;
     /**
      * 创建时间
      */

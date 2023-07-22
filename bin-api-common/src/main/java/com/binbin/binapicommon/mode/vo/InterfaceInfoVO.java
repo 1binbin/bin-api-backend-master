@@ -57,6 +57,11 @@ public class InterfaceInfoVO implements Serializable {
     private String requestParams;
 
     /**
+     * 接口价格
+     */
+    private Double price;
+
+    /**
      * 请求参数说明
      */
     private List<RequestParamsRemarkVO> requestParamsRemark;

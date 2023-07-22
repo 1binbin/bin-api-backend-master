@@ -89,6 +89,11 @@ public class InterfaceInfo implements Serializable {
     private Long userId;
 
     /**
+     * 接口价格
+     */
+    private Double price;
+
+    /**
      * 创建时间
      */
     private Date createTime;

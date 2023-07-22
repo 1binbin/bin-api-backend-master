@@ -47,6 +47,11 @@ public class InterfaceInfoUpdateRequest implements Serializable {
      * 请求参数
      */
     private String requestParams;
+
+    /**
+     * 接口价格
+     */
+    private Double price;
     /**
      * 请求参数说明
      */
