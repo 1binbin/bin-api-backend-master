@@ -6,6 +6,7 @@
 
 package com.binbin.binapiadmin.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.binbin.binapiadmin.annotation.AuthCheck;
 import com.binbin.binapiadmin.exception.BusinessException;
@@ -13,10 +14,7 @@ import com.binbin.binapiadmin.exception.ThrowUtil;
 import com.binbin.binapiadmin.service.UserService;
 import com.binbin.binapicommon.common.*;
 import com.binbin.binapicommon.constant.UserConstant;
-import com.binbin.binapicommon.mode.dto.user.UserLoginRequest;
-import com.binbin.binapicommon.mode.dto.user.UserQueryRequest;
-import com.binbin.binapicommon.mode.dto.user.UserRegisterRequest;
-import com.binbin.binapicommon.mode.dto.user.UserUpdateMyRequest;
+import com.binbin.binapicommon.mode.dto.user.*;
 import com.binbin.binapicommon.mode.entity.User;
 import com.binbin.binapicommon.mode.vo.LoginUserVO;
 import com.binbin.binapicommon.mode.vo.UserVO;
@@ -57,7 +55,7 @@ public class UserController {
         String userPassword = userRegisterRequest.getUserPassword();
         String checkPassword = userRegisterRequest.getCheckPassword();
         String isAdmin = userRegisterRequest.getIsAdmin();
-        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword,isAdmin)) {
+        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword, isAdmin)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         long result = userService.userRegister(userAccount, userPassword, checkPassword, UserConstant.ADMIN_ROLE.equals(isAdmin));
@@ -248,5 +246,32 @@ public class UserController {
         boolean result = userService.updateSecretKey(idRequest.getId());
         ThrowUtil.throwIf(!result, ErrorCode.OPERATION_ERROR);
         return ResultUtils.success(true);
+    }
+
+    /**
+     * 用户重置密码
+     *
+     * @param userForgetPasswordRequest 用户信息
+     * @return 用户id
+     */
+    @PostMapping("/forgetPassword")
+    public BaseResponse<Long> forgetPassword(@RequestBody UserForgetPasswordRequest userForgetPasswordRequest) {
+        if (userForgetPasswordRequest == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        String userAccount = userForgetPasswordRequest.getUserAccount();
+        String userPassword = userForgetPasswordRequest.getUserPassword();
+        String checkPassword = userForgetPasswordRequest.getCheckPassword();
+        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        userQueryWrapper.eq("userAccount", userAccount);
+        User one = userService.getOne(userQueryWrapper);
+        if (one == null) {
+            return ResultUtils.fail(ErrorCode.OPERATION_ERROR);
+        }
+        long result = userService.forgetPassword(userAccount, userPassword, checkPassword);
+        return ResultUtils.success(result);
     }
 }

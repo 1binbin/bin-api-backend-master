@@ -103,4 +103,13 @@ public interface UserService extends IService<User> {
      * @return boolean 是否正常更新
      */
     boolean updateSecretKey(Long id);
+
+    /**
+     * 重置密码
+     * @param userAccount 用户账号
+     * @param userPassword 用户新密码
+     * @param checkPassword 确认密码
+     * @return 用户id
+     */
+    long forgetPassword(String userAccount, String userPassword, String checkPassword);
 }
