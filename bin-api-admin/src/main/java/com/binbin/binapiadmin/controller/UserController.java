@@ -265,12 +265,6 @@ public class UserController {
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        userQueryWrapper.eq("userAccount", userAccount);
-        User one = userService.getOne(userQueryWrapper);
-        if (one == null) {
-            return ResultUtils.fail(ErrorCode.OPERATION_ERROR);
-        }
         long result = userService.forgetPassword(userAccount, userPassword, checkPassword);
         return ResultUtils.success(result);
     }

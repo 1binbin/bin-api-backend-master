@@ -296,21 +296,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         synchronized (userAccount.intern()) {
             QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
             userQueryWrapper.eq("userAccount", userAccount);
-            Long aLong = this.baseMapper.selectCount(userQueryWrapper);
-            if (aLong <= 0) {
+            User user = this.getOne(userQueryWrapper);
+            if (user == null) {
                 throw new BusinessException(ErrorCode.PARAMS_ERROR, "账号不存在");
             }
+            Long userId = user.getId();
             // 加密
             String encrtPassword = DigestUtils.md5DigestAsHex((UserConstant.USER_SALT + userPassword).getBytes());
             // 重置密码
-            User user = new User();
-            user.setUserAccount(userAccount);
-            user.setUserPassword(encrtPassword);
-            boolean save = this.save(user);
-            if (!save) {
+            User newUser = new User();
+            newUser.setId(userId);
+            newUser.setUserAccount(userAccount);
+            newUser.setUserPassword(encrtPassword);
+            boolean result = this.updateById(newUser);
+            if (!result) {
                 throw new BusinessException(ErrorCode.SYSTEM_ERROR, "重置密码失败，请重试");
             }
-            return user.getId();
+            return newUser.getId();
         }
     }
 }
